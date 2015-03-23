@@ -50,6 +50,24 @@ public class CityDB {
     }
 
 
+    /**
+     * 拿到省的所有城市
+     *
+     * @return
+     */
+    public List<String> getProvinceAllCity(String province) {
+
+        List<String> list = new ArrayList<>();
+
+        Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ?", new String[]{province});
+        while (c.moveToNext()) {
+            String city = c.getString(c.getColumnIndex("city"));
+            list.add(city);
+        }
+        return list;
+    }
+
+
     public City getCity(String city) {
         if (TextUtils.isEmpty(city))
             return null;
