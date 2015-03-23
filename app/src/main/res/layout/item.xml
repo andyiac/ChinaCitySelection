@@ -8,9 +8,10 @@
         style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:gravity="center"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:clickable="false"
         android:focusable="false"
-        android:text="text view"
+        android:text="text"
+        android:textSize="12sp"
         android:id="@+id/ItemBtn" />
 </RelativeLayout>

@@ -23,7 +23,7 @@ public class ClientApplication extends Application {
     private static final String FORMAT = "^[a-z,A1-Z].*$";
     private static final int CITY_LIST_SCUESS = 0;
     private List<City> mCityList;
-    private CityDB mCityDB;
+    private static CityDB mCityDB;
     private boolean isCityListComplite;
     private List<String> mSections;
     private Map<String, List<City>> mMap;
@@ -50,11 +50,22 @@ public class ClientApplication extends Application {
         }
     };
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         mApplication = this;
         initCityList();
+    }
+
+    public static ClientApplication getInstance() {
+        return mApplication;
+    }
+
+    public synchronized CityDB getCityDB() {
+        if (mCityDB == null)
+            mCityDB = openCityDB();
+        return mCityDB;
     }
 
     private void initCityList() {
@@ -135,6 +146,7 @@ public class ClientApplication extends Application {
         }
         return true;
     }
+
 
     public static abstract interface EventHandler {
         public abstract void onCityComplite();

@@ -37,6 +37,19 @@ public class CityDB {
     }
 
 
+    public List<String> getAllProvince() {
+
+        List<String> list = new ArrayList<>();
+
+        Cursor c = db.rawQuery("SELECT distinct province from " + CITY_TABLE_NAME, null);
+        while (c.moveToNext()) {
+            String province = c.getString(c.getColumnIndex("province"));
+            list.add(province);
+        }
+        return list;
+    }
+
+
     public City getCity(String city) {
         if (TextUtils.isEmpty(city))
             return null;

@@ -12,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import knight.chinacityselection.db.CityDB;
 
 
 public class MainActivity extends Activity {
@@ -24,11 +26,14 @@ public class MainActivity extends Activity {
 
         GridView gridview = (GridView) findViewById(R.id.id_grid_view);
 
-        ArrayList<String> arraylist = new ArrayList<String>();
-        for (int i = 1; i < 11; i++) {
-            arraylist.add(i + "btn");
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.ItemBtn, arraylist);
+
+
+        CityDB cityDB = ClientApplication.getInstance().getCityDB();
+
+        List<String> cityList = cityDB.getAllProvince();
+
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.ItemBtn, cityList);
 
         gridview.setAdapter(arrayAdapter);
         gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -38,7 +43,7 @@ public class MainActivity extends Activity {
                 new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                         int index = arg2 + 1;//id是从0开始的，所以需要+1
-                        Toast.makeText(MainActivity.this, "你按下了选项：" + index, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "你按下了选项：" + index, Toast.LENGTH_SHORT).show();
                         Log.e("test ", "==========");
                     }
                 }
