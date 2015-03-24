@@ -2,7 +2,6 @@ package knight.chinacityselection;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,12 +12,10 @@ import java.util.ArrayList;
 
 import knight.chinacityselection.adapter.GridViewAdapter;
 import knight.chinacityselection.db.CityDB;
-import knight.chinacityselection.fragments.CitySelectFragment;
-import knight.chinacityselection.fragments.ProvinceSelectFragment;
 import knight.chinacityselection.views.GridPop;
 
 
-public class MainActivity extends FragmentActivity implements ProvinceSelectFragment.onProvinceSelectedListener {
+public class MainActivity extends FragmentActivity {
 
 
     private GridPop gridpop;
@@ -30,12 +27,6 @@ public class MainActivity extends FragmentActivity implements ProvinceSelectFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getSupportFragmentManager().beginTransaction()
-                .addToBackStack(this.toString())
-                .replace(R.id.activity_main, new ProvinceSelectFragment(), this.toString())
-                .commit();
-
 
         btn1 = (Button) findViewById(R.id.id_btn_1);
 
@@ -72,26 +63,6 @@ public class MainActivity extends FragmentActivity implements ProvinceSelectFrag
             }
         });
     }
-
-    @Override
-    public void onProvinceSelected(String province) {
-        gotoCitySelectFragment(province);
-    }
-
-
-    private void gotoCitySelectFragment(String province) {
-
-        CitySelectFragment citySelectFragment = new CitySelectFragment();
-        Bundle args = new Bundle();
-        args.putString(CitySelectFragment.PROVINCE, province);
-        citySelectFragment.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        transaction.replace(R.id.activity_main, citySelectFragment, this.toString());
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
 
 }
 
