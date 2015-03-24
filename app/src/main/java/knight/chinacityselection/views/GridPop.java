@@ -1,17 +1,15 @@
 package knight.chinacityselection.views;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,7 +69,6 @@ public class GridPop extends PopupWindow {
                     String province = stringArray.get(position);
                     selectCity(stringArray, province);
                 } else if (GridPop.this.isShowing()) {
-                    Toast.makeText(context.getApplicationContext(), "item on clicked" + stringArray.get(position), Toast.LENGTH_SHORT).show();
                     mOnCitySelectedListener.onCitySelected(stringArray.get(position));
                     flagCitySelected = false;
                     GridPop.this.dismiss();
@@ -105,13 +102,10 @@ public class GridPop extends PopupWindow {
             }
         });
 
-        DisplayMetrics dm = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
         setContentView(allView);
-//        setWidth(dm.widthPixels / 2);
         setWidth(LayoutParams.MATCH_PARENT);
         setHeight(LayoutParams.WRAP_CONTENT);
-//        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         setTouchable(true);
         setFocusable(true);
         setOutsideTouchable(true);
@@ -132,4 +126,22 @@ public class GridPop extends PopupWindow {
         gridViewAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * toggle gridPop windows
+     *
+     * @param v
+     */
+    public void toggle(final View v) {
+        if (this.isShowing()) {
+            this.dismiss();
+        } else {
+            this.showAsDropDown(v);
+            this.setOnCitySelectedListener(new GridPop.onCitySelectedListener() {
+                @Override
+                public void onCitySelected(String city) {
+                    ((Button) v).setText(city);
+                }
+            });
+        }
+    }
 }

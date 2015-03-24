@@ -28,14 +28,8 @@ public class MainActivity extends FragmentActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (gridpop != null) {
-                    if (gridpop.isShowing()) {
-                        gridpop.dismiss();
-                    } else {
-                        gridpop.showAsDropDown(v);
-                    }
+                    gridpop.toggle(v);
                 }
             }
         });
@@ -43,17 +37,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(final View v) {
                 if (gridpop != null) {
-                    if (gridpop.isShowing()) {
-                        gridpop.dismiss();
-                    } else {
-                        gridpop.showAsDropDown(v);
-                        gridpop.setOnCitySelectedListener(new GridPop.onCitySelectedListener() {
-                            @Override
-                            public void onCitySelected(String city) {
-                                ((Button) v).setText(city);
-                            }
-                        });
-                    }
+                    gridpop.toggle(v);
                 }
             }
         });
