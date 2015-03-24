@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,11 @@ public class GridPop extends PopupWindow {
     //选择城市标志位
     private boolean flagCitySelected = false;
 
+    private ArrayList<String> stringArray;
+    private Button backBtn;
+
+    private RelativeLayout mRLPopTitleAction;
+
     public interface onCitySelectedListener {
         public void onCitySelected(String city);
     }
@@ -53,9 +59,30 @@ public class GridPop extends PopupWindow {
         initView();
     }
 
+    /**
+     * 初始化TitleAction
+     */
+    private void initTitleAction() {
+
+        updateTitleAction();
+    }
+
+    /**
+     * 更新TitleAction
+     */
+    private void updateTitleAction() {
+
+        if (!flagCitySelected) {
+            mRLPopTitleAction.setVisibility(View.GONE);
+        } else {
+            mRLPopTitleAction.setVisibility(View.VISIBLE);
+        }
+
+    }
+
     private void initView() {
 
-        final ArrayList<String> stringArray = (ArrayList<String>) cityDB.getAllProvince();
+        stringArray = (ArrayList<String>) cityDB.getAllProvince();
 
         gv = getAllItemGrid();
         gridViewAdapter = new GridViewAdapter(context, stringArray);
@@ -65,6 +92,8 @@ public class GridPop extends PopupWindow {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 if (!flagCitySelected) {
                     String province = stringArray.get(position);
                     selectCity(stringArray, province);
@@ -76,6 +105,26 @@ public class GridPop extends PopupWindow {
                     stringArray.addAll(cityDB.getAllProvince());
                     gridViewAdapter.notifyDataSetChanged();
                 }
+
+                updateTitleAction();
+            }
+        });
+
+
+        mRLPopTitleAction = (RelativeLayout) allView.findViewById(R.id.layout_id_pop_grid);
+        initTitleAction();
+
+        //初始化 pop window action title
+        backBtn = (Button) allView.findViewById(R.id.id_btn_pop_grid_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flagCitySelected = false;
+                stringArray.clear();
+                stringArray.addAll(cityDB.getAllProvince());
+                gridViewAdapter.notifyDataSetChanged();
+
+                updateTitleAction();
             }
         });
     }
