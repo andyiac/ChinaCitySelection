@@ -2,8 +2,6 @@ package knight.chinacityselection.views;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -57,7 +55,7 @@ public class GridPop extends PopupWindow {
 //        setWidth(dm.widthPixels / 2);
         setWidth(LayoutParams.MATCH_PARENT);
         setHeight(LayoutParams.WRAP_CONTENT);
-        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setTouchable(true);
         setFocusable(true);
         setOutsideTouchable(true);

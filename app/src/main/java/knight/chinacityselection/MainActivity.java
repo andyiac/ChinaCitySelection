@@ -22,11 +22,18 @@ public class MainActivity extends FragmentActivity {
     private GridView gv;
 
     private Button btn1;
+    private CityDB cityDB;
+    private GridViewAdapter gridViewAdapter;
+
+
+    //选择城市标志位
+    private boolean flagCitySelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         btn1 = (Button) findViewById(R.id.id_btn_1);
 
@@ -45,23 +52,39 @@ public class MainActivity extends FragmentActivity {
 
         gridpop = new GridPop(MainActivity.this, R.layout.fragment_main);
 
-        CityDB cityDB = ClientApplication.getInstance().getCityDB();
-        ArrayList<String> stringArray = (ArrayList<String>) cityDB.getAllProvince();
+        cityDB = ClientApplication.getInstance().getCityDB();
+        final ArrayList<String> stringArray = (ArrayList<String>) cityDB.getAllProvince();
 
         gv = gridpop.getAllItemGrid();
-        gv.setAdapter(new GridViewAdapter(MainActivity.this, stringArray));
+        gridViewAdapter = new GridViewAdapter(MainActivity.this, stringArray);
+
+        gv.setAdapter(gridViewAdapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //TODO DO SOMETHING
-                Toast.makeText(getApplicationContext(), "item on clicked" + position, Toast.LENGTH_SHORT).show();
-                if (gridpop.isShowing()) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (!flagCitySelected) {
+                    String province = stringArray.get(position);
+                    selectCity(stringArray, province);
+                } else if (gridpop.isShowing()) {
+                    flagCitySelected = false;
                     gridpop.dismiss();
+                    stringArray.clear();
+                    stringArray.addAll(cityDB.getAllProvince());
+                    gridViewAdapter.notifyDataSetChanged();
                 }
+                Toast.makeText(getApplicationContext(), "item on clicked" + position, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void selectCity(ArrayList<String> stringArray, String province) {
+        flagCitySelected = true;
+        stringArray.clear();
+        ArrayList<String> cityList = (ArrayList<String>) cityDB.getProvinceAllCity(province);
+        stringArray.addAll(cityList);
+        gridViewAdapter.notifyDataSetChanged();
     }
 
 }
