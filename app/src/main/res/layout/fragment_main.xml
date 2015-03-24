@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <GridView
-        android:background="@drawable/select_city_background"
+        android:listSelector="@android:color/transparent"
         android:id="@+id/id_grid_view"
         android:numColumns="auto_fit"
         android:columnWidth="90dp"

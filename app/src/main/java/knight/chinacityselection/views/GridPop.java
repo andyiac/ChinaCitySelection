@@ -14,9 +14,6 @@ import android.widget.PopupWindow;
 import knight.chinacityselection.R;
 
 
-/**
- * @author yaguang.wang
- */
 public class GridPop extends PopupWindow {
     private Context context;
     private LayoutInflater layoutInflater;

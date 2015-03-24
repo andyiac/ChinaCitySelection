@@ -25,7 +25,6 @@ public class MainActivity extends FragmentActivity {
     private CityDB cityDB;
     private GridViewAdapter gridViewAdapter;
 
-
     //选择城市标志位
     private boolean flagCitySelected = false;
 
@@ -33,7 +32,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         btn1 = (Button) findViewById(R.id.id_btn_1);
 
