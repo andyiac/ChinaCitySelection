@@ -51,18 +51,16 @@ public class GridPop extends PopupWindow {
             }
         });
 
-
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
         setContentView(allView);
-        setWidth(dm.widthPixels / 2);
+//        setWidth(dm.widthPixels / 2);
+        setWidth(LayoutParams.MATCH_PARENT);
         setHeight(LayoutParams.WRAP_CONTENT);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setTouchable(true);
         setFocusable(true);
         setOutsideTouchable(true);
-
-
     }
 
     /**

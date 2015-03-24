@@ -7,23 +7,41 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content">
 
         <Button
             style="@android:style/Widget.Button"
+            android:id="@+id/id_btn_0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="btn0" />
+
+        <Button
+            style="@android:style/Widget.Button"
             android:id="@+id/id_btn_1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="btn1" />
 
         <Button
             style="@android:style/Widget.Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:id="@+id/id_btn_2"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="btn2" />
 
+
     </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/image1" />
 
     <FrameLayout
         android:id="@+id/activity_main"
