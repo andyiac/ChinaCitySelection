@@ -26,8 +26,7 @@ public class City implements Serializable {
         // TODO Auto-generated constructor stub
     }
 
-    public City(String province, String city, String number, String firstPY,
-                String allPY, String allFristPY, Double lat, Double lon) {
+    public City(String province, String city,Double lat, Double lon) {
         super();
         this.province = province;
         this.city = city;

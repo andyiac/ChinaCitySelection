@@ -23,14 +23,13 @@ public class CityDB {
         while (c.moveToNext()) {
             String province = c.getString(c.getColumnIndex("province"));
             String city = c.getString(c.getColumnIndex("city"));
-            String number = c.getString(c.getColumnIndex("number"));
-            String allPY = c.getString(c.getColumnIndex("allpy"));
-            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
-            String firstPY = c.getString(c.getColumnIndex("firstpy"));
+//            String number = c.getString(c.getColumnIndex("number"));
+//            String allPY = c.getString(c.getColumnIndex("allpy"));
+//            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
+//            String firstPY = c.getString(c.getColumnIndex("firstpy"));
             Double latitude = c.getDouble(c.getColumnIndex("latitude"));
             Double longitude = c.getDouble(c.getColumnIndex("longitude"));
-            City item = new City(province, city, number, firstPY, allPY,
-                    allFirstPY, latitude, longitude);
+            City item = new City(province, city, latitude, longitude);
             list.add(item);
         }
         return list;
@@ -102,15 +101,14 @@ public class CityDB {
         if (c.moveToFirst()) {
             String province = c.getString(c.getColumnIndex("province"));
             String name = c.getString(c.getColumnIndex("city"));
-            String number = c.getString(c.getColumnIndex("number"));
-            String allPY = c.getString(c.getColumnIndex("allpy"));
-            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
-            String firstPY = c.getString(c.getColumnIndex("firstpy"));
+//            String number = c.getString(c.getColumnIndex("number"));
+//            String allPY = c.getString(c.getColumnIndex("allpy"));
+//            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
+//            String firstPY = c.getString(c.getColumnIndex("firstpy"));
             Double latitude = c.getDouble(c.getColumnIndex("latitude"));
             Double longitude = c.getDouble(c.getColumnIndex("longitude"));
 
-            City item = new City(province, name, number, firstPY, allPY,
-                    allFirstPY, latitude, longitude);
+            City item = new City(province, name, latitude, longitude);
             return item;
         }
         return null;
