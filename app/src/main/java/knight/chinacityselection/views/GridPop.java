@@ -193,4 +193,9 @@ public class GridPop extends PopupWindow {
             });
         }
     }
+
+
+    private enum FlagCitySelected {
+        PROVINCE, CITY, COUNTRY;
+    }
 }
