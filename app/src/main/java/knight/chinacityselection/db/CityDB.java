@@ -54,7 +54,7 @@ public class CityDB {
 
         List<String> list = new ArrayList<>();
 
-        Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ? ", new String[]{province});
+        Cursor c = db.rawQuery("SELECT distinct city from " + CITY_TABLE_NAME + " where province = ? ", new String[]{province});
         while (c.moveToNext()) {
             String city = c.getString(c.getColumnIndex("city"));
             list.add(city);
@@ -71,7 +71,7 @@ public class CityDB {
 
         List<String> list = new ArrayList<>();
 
-        Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ? and city = ?", new String[]{province, city});
+        Cursor c = db.rawQuery("SELECT country from " + CITY_TABLE_NAME + " where province = ? and city = ?", new String[]{province, city});
         while (c.moveToNext()) {
             String country = c.getString(c.getColumnIndex("country"));
             list.add(country);

@@ -80,7 +80,6 @@ public class GridPop extends PopupWindow {
         } else {
             mRLPopTitleAction.setVisibility(View.VISIBLE);
         }
-
     }
 
     private void initView() {
@@ -98,10 +97,12 @@ public class GridPop extends PopupWindow {
                 switch (flagCitySelected) {
                     case ZERO:
                         mCurrentProvince = mCurrentStringArray.get(position);
+                        flagCitySelected = FlagCitySelected.PROVINCE;
                         selectCity(mCurrentProvince);
                         break;
                     case PROVINCE:
                         String city = mCurrentStringArray.get(position);
+                        flagCitySelected = FlagCitySelected.CITY;
                         selectCountry(mCurrentProvince, city);
                         break;
                     case CITY:
@@ -175,16 +176,13 @@ public class GridPop extends PopupWindow {
     }
 
     private void selectCity(String province) {
-        flagCitySelected = FlagCitySelected.CITY;
         mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getProvinceAllCity(province);
         mCurrentStringArray.addAll(cityList);
         gridViewAdapter.notifyDataSetChanged();
     }
 
-
     private void selectCountry(String province, String city) {
-        flagCitySelected = FlagCitySelected.COUNTRY;
         mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getAllCountry(province, city);
         mCurrentStringArray.addAll(cityList);
@@ -209,7 +207,6 @@ public class GridPop extends PopupWindow {
             });
         }
     }
-
 
     private enum FlagCitySelected {
         ZERO, PROVINCE, CITY, COUNTRY;
