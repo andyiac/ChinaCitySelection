@@ -32,12 +32,16 @@ public class GridPop extends PopupWindow {
     private GridViewAdapter gridViewAdapter;
 
     //选择城市标志位
-    private boolean flagCitySelected = false;
+//    private boolean flagCitySelected = false;
+    private FlagCitySelected flagCitySelected = FlagCitySelected.ZERO;
 
-    private ArrayList<String> stringArray;
+    private String mCurrentProvince;
+
+    private ArrayList<String> mCurrentStringArray;
     private Button backBtn;
 
     private RelativeLayout mRLPopTitleAction;
+
 
     public interface onCitySelectedListener {
         public void onCitySelected(String city);
@@ -63,7 +67,6 @@ public class GridPop extends PopupWindow {
      * 初始化TitleAction
      */
     private void initTitleAction() {
-
         updateTitleAction();
     }
 
@@ -72,7 +75,7 @@ public class GridPop extends PopupWindow {
      */
     private void updateTitleAction() {
 
-        if (!flagCitySelected) {
+        if (flagCitySelected.ordinal() == FlagCitySelected.ZERO.ordinal()) {
             mRLPopTitleAction.setVisibility(View.GONE);
         } else {
             mRLPopTitleAction.setVisibility(View.VISIBLE);
@@ -82,30 +85,34 @@ public class GridPop extends PopupWindow {
 
     private void initView() {
 
-        stringArray = (ArrayList<String>) cityDB.getAllProvince();
+        mCurrentStringArray = (ArrayList<String>) cityDB.getAllProvince();
 
         gv = getAllItemGrid();
-        gridViewAdapter = new GridViewAdapter(context, stringArray);
+        gridViewAdapter = new GridViewAdapter(context, mCurrentStringArray);
 
         gv.setAdapter(gridViewAdapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                if (!flagCitySelected) {
-                    String province = stringArray.get(position);
-                    selectCity(stringArray, province);
-                } else if (GridPop.this.isShowing()) {
-                    mOnCitySelectedListener.onCitySelected(stringArray.get(position));
-                    flagCitySelected = false;
-                    GridPop.this.dismiss();
-                    stringArray.clear();
-                    stringArray.addAll(cityDB.getAllProvince());
-                    gridViewAdapter.notifyDataSetChanged();
+                switch (flagCitySelected) {
+                    case ZERO:
+                        mCurrentProvince = mCurrentStringArray.get(position);
+                        selectCity(mCurrentProvince);
+                        break;
+                    case PROVINCE:
+                        String city = mCurrentStringArray.get(position);
+                        selectCountry(mCurrentProvince, city);
+                        break;
+                    case CITY:
+                        mOnCitySelectedListener.onCitySelected(mCurrentStringArray.get(position));
+                        flagCitySelected = FlagCitySelected.ZERO;
+                        GridPop.this.dismiss();
+                        mCurrentStringArray.clear();
+                        mCurrentStringArray.addAll(cityDB.getAllProvince());
+                        gridViewAdapter.notifyDataSetChanged();
+                        break;
                 }
-
                 updateTitleAction();
             }
         });
@@ -119,9 +126,9 @@ public class GridPop extends PopupWindow {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flagCitySelected = false;
-                stringArray.clear();
-                stringArray.addAll(cityDB.getAllProvince());
+                flagCitySelected = FlagCitySelected.ZERO;
+                mCurrentStringArray.clear();
+                mCurrentStringArray.addAll(cityDB.getAllProvince());
                 gridViewAdapter.notifyDataSetChanged();
 
                 updateTitleAction();
@@ -167,11 +174,20 @@ public class GridPop extends PopupWindow {
         return allItemGrid;
     }
 
-    private void selectCity(ArrayList<String> stringArray, String province) {
-        flagCitySelected = true;
-        stringArray.clear();
+    private void selectCity(String province) {
+        flagCitySelected = FlagCitySelected.CITY;
+        mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getProvinceAllCity(province);
-        stringArray.addAll(cityList);
+        mCurrentStringArray.addAll(cityList);
+        gridViewAdapter.notifyDataSetChanged();
+    }
+
+
+    private void selectCountry(String province, String city) {
+        flagCitySelected = FlagCitySelected.COUNTRY;
+        mCurrentStringArray.clear();
+        ArrayList<String> cityList = (ArrayList<String>) cityDB.getAllCountry(province, city);
+        mCurrentStringArray.addAll(cityList);
         gridViewAdapter.notifyDataSetChanged();
     }
 
@@ -196,6 +212,6 @@ public class GridPop extends PopupWindow {
 
 
     private enum FlagCitySelected {
-        PROVINCE, CITY, COUNTRY;
+        ZERO, PROVINCE, CITY, COUNTRY;
     }
 }
