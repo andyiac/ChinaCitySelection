@@ -23,10 +23,6 @@ public class CityDB {
         while (c.moveToNext()) {
             String province = c.getString(c.getColumnIndex("province"));
             String city = c.getString(c.getColumnIndex("city"));
-//            String number = c.getString(c.getColumnIndex("number"));
-//            String allPY = c.getString(c.getColumnIndex("allpy"));
-//            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
-//            String firstPY = c.getString(c.getColumnIndex("firstpy"));
             Double latitude = c.getDouble(c.getColumnIndex("latitude"));
             Double longitude = c.getDouble(c.getColumnIndex("longitude"));
             City item = new City(province, city, latitude, longitude);
@@ -50,7 +46,7 @@ public class CityDB {
 
 
     /**
-     * 拿到省的所有城市
+     * 拿到省的所有 地级市
      *
      * @return
      */
@@ -58,7 +54,6 @@ public class CityDB {
 
         List<String> list = new ArrayList<>();
 
-//        Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ?", new String[]{province});
         Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ? ", new String[]{province});
         while (c.moveToNext()) {
             String city = c.getString(c.getColumnIndex("city"));
@@ -67,6 +62,22 @@ public class CityDB {
         return list;
     }
 
+    /**
+     * 拿到所有的 县或区
+     *
+     * @return
+     */
+    public List<String> getAllCountry(String province, String city) {
+
+        List<String> list = new ArrayList<>();
+
+        Cursor c = db.rawQuery("SELECT city from " + CITY_TABLE_NAME + " where province = ? and city = ?", new String[]{province, city});
+        while (c.moveToNext()) {
+            String country = c.getString(c.getColumnIndex("country"));
+            list.add(country);
+        }
+        return list;
+    }
 
     public City getCity(String city) {
         if (TextUtils.isEmpty(city))
@@ -101,10 +112,6 @@ public class CityDB {
         if (c.moveToFirst()) {
             String province = c.getString(c.getColumnIndex("province"));
             String name = c.getString(c.getColumnIndex("city"));
-//            String number = c.getString(c.getColumnIndex("number"));
-//            String allPY = c.getString(c.getColumnIndex("allpy"));
-//            String allFirstPY = c.getString(c.getColumnIndex("allfirstpy"));
-//            String firstPY = c.getString(c.getColumnIndex("firstpy"));
             Double latitude = c.getDouble(c.getColumnIndex("latitude"));
             Double longitude = c.getDouble(c.getColumnIndex("longitude"));
 
