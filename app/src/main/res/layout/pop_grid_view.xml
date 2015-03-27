@@ -12,6 +12,7 @@
 
         <Button
             android:text="全部"
+            android:id="@+id/id_btn_pop_grid_all"
             android:textSize="12sp"
             android:gravity="center"
             style="@android:style/Widget.Button"

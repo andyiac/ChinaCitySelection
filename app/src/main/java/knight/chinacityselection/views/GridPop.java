@@ -37,7 +37,6 @@ public class GridPop extends PopupWindow {
     private String mCurrentProvince;
 
     private ArrayList<String> mCurrentStringArray;
-    private Button backBtn;
 
     private RelativeLayout mRLPopTitleAction;
 
@@ -122,7 +121,7 @@ public class GridPop extends PopupWindow {
         initTitleAction();
 
         //初始化 pop window action title
-        backBtn = (Button) allView.findViewById(R.id.id_btn_pop_grid_back);
+        Button backBtn = (Button) allView.findViewById(R.id.id_btn_pop_grid_back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +138,14 @@ public class GridPop extends PopupWindow {
                 }
 
                 updateTitleAction();
+            }
+        });
+
+        Button allAreaBtn = (Button) allView.findViewById(R.id.id_btn_pop_grid_all);
+        allAreaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               GridPop.this.dismiss();
             }
         });
     }
@@ -209,8 +216,14 @@ public class GridPop extends PopupWindow {
      * @param city
      */
     private void selectCountry(String province, String city) {
-        mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getAllCountry(province, city);
+        if (cityList.size() <= 1) {
+            flagCitySelected = FlagCitySelected.ZERO;
+            GridPop.this.dismiss();
+            selectAllProvince();
+            return;
+        }
+        mCurrentStringArray.clear();
         mCurrentStringArray.addAll(cityList);
         gridViewAdapter.notifyDataSetChanged();
     }
@@ -224,6 +237,7 @@ public class GridPop extends PopupWindow {
         if (this.isShowing()) {
             this.dismiss();
         } else {
+
             this.showAsDropDown(v);
             this.setOnCitySelectedListener(new GridPop.onCitySelectedListener() {
                 @Override
@@ -238,6 +252,6 @@ public class GridPop extends PopupWindow {
      * 标志位
      */
     private enum FlagCitySelected {
-        ZERO, PROVINCE, CITY, COUNTRY;
+        ZERO, PROVINCE, CITY, COUNTRY
     }
 }
