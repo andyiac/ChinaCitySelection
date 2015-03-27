@@ -12,18 +12,18 @@
 
         <Button
             android:text="全部"
+            android:background="@drawable/city_select"
             android:id="@+id/id_btn_pop_grid_all"
             android:textSize="12sp"
             android:gravity="center"
-            style="@android:style/Widget.Button"
             android:layout_height="35dp"
             android:layout_width="wrap_content" />
 
         <Button
+            android:background="@drawable/city_select"
             android:id="@+id/id_btn_pop_grid_back"
             android:text="返回"
             android:gravity="center"
-            style="@android:style/Widget.Button"
             android:textSize="12sp"
             android:layout_height="35dp"
             android:layout_width="wrap_content"

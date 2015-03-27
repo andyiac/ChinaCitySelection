@@ -1,38 +1,52 @@
 <LinearLayout
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
+    android:padding="3dp"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:orientation="horizontal"
+        android:background="@drawable/city_select_pop_window_action_bar_shape"
         android:layout_width="fill_parent"
-        android:layout_margin="10dp"
         android:layout_height="wrap_content">
 
         <Button
-            style="@android:style/Widget.Button"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
             android:id="@+id/id_btn_0"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="btn0" />
+            android:text="全部" />
+
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent" />
 
         <Button
-            style="@android:style/Widget.Button"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
             android:id="@+id/id_btn_1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="btn1" />
+            android:text="选择出发地" />
+
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent" />
 
         <Button
-            style="@android:style/Widget.Button"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/id_btn_2"
             android:layout_height="wrap_content"
-            android:text="btn2" />
+            android:text="选择目的地" />
 
 
     </LinearLayout>

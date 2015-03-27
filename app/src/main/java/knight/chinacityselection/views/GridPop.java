@@ -1,6 +1,8 @@
 package knight.chinacityselection.views;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,7 +147,7 @@ public class GridPop extends PopupWindow {
         allAreaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               GridPop.this.dismiss();
+                GridPop.this.dismiss();
             }
         });
     }
@@ -175,7 +177,7 @@ public class GridPop extends PopupWindow {
         setContentView(allView);
         setWidth(LayoutParams.MATCH_PARENT);
         setHeight(LayoutParams.WRAP_CONTENT);
-//        setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        setBackgroundDrawable(new ColorDrawable(Color.rgb(252, 252, 252)));
         setTouchable(true);
         setFocusable(true);
         setOutsideTouchable(true);
