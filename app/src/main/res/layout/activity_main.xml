@@ -16,6 +16,8 @@
             android:textColor="@android:color/black"
             android:id="@+id/id_btn_0"
             android:layout_width="0dp"
+            android:textSize="16sp"
+            android:singleLine="true"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="全部" />
@@ -29,7 +31,9 @@
             android:background="@android:color/white"
             android:textColor="@android:color/black"
             android:id="@+id/id_btn_1"
+            android:singleLine="true"
             android:layout_width="0dp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="选择出发地" />
@@ -44,11 +48,11 @@
             android:textColor="@android:color/black"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:textSize="16sp"
+            android:singleLine="true"
             android:id="@+id/id_btn_2"
             android:layout_height="wrap_content"
             android:text="选择目的地" />
-
-
     </LinearLayout>
 
 
