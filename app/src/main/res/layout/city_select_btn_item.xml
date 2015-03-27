@@ -13,6 +13,7 @@
         android:clickable="false"
         android:focusable="false"
         android:text="text"
+        android:singleLine="true"
         android:textSize="13sp"
         android:id="@+id/ItemBtn" />
 </RelativeLayout>
