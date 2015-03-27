@@ -32,7 +32,6 @@ public class GridPop extends PopupWindow {
     private GridViewAdapter gridViewAdapter;
 
     //选择城市标志位
-//    private boolean flagCitySelected = false;
     private FlagCitySelected flagCitySelected = FlagCitySelected.ZERO;
 
     private String mCurrentProvince;
@@ -96,11 +95,13 @@ public class GridPop extends PopupWindow {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (flagCitySelected) {
                     case ZERO:
+                        mOnCitySelectedListener.onCitySelected(mCurrentStringArray.get(position));
                         mCurrentProvince = mCurrentStringArray.get(position);
                         flagCitySelected = FlagCitySelected.PROVINCE;
                         selectCity(mCurrentProvince);
                         break;
                     case PROVINCE:
+                        mOnCitySelectedListener.onCitySelected(mCurrentStringArray.get(position));
                         String city = mCurrentStringArray.get(position);
                         flagCitySelected = FlagCitySelected.CITY;
                         selectCountry(mCurrentProvince, city);
@@ -109,9 +110,7 @@ public class GridPop extends PopupWindow {
                         mOnCitySelectedListener.onCitySelected(mCurrentStringArray.get(position));
                         flagCitySelected = FlagCitySelected.ZERO;
                         GridPop.this.dismiss();
-                        mCurrentStringArray.clear();
-                        mCurrentStringArray.addAll(cityDB.getAllProvince());
-                        gridViewAdapter.notifyDataSetChanged();
+                        selectAllProvince();
                         break;
                 }
                 updateTitleAction();
@@ -127,10 +126,17 @@ public class GridPop extends PopupWindow {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flagCitySelected = FlagCitySelected.ZERO;
-                mCurrentStringArray.clear();
-                mCurrentStringArray.addAll(cityDB.getAllProvince());
-                gridViewAdapter.notifyDataSetChanged();
+
+                switch (flagCitySelected) {
+                    case PROVINCE:
+                        flagCitySelected = FlagCitySelected.ZERO;
+                        selectAllProvince();
+                        break;
+                    case CITY:
+                        flagCitySelected = FlagCitySelected.PROVINCE;
+                        selectCity(mCurrentProvince);
+                        break;
+                }
 
                 updateTitleAction();
             }
@@ -175,6 +181,20 @@ public class GridPop extends PopupWindow {
         return allItemGrid;
     }
 
+    /**
+     * 所有省
+     */
+    private void selectAllProvince() {
+        mCurrentStringArray.clear();
+        mCurrentStringArray.addAll(cityDB.getAllProvince());
+        gridViewAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 所有 市
+     *
+     * @param province
+     */
     private void selectCity(String province) {
         mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getProvinceAllCity(province);
@@ -182,6 +202,12 @@ public class GridPop extends PopupWindow {
         gridViewAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 所有县
+     *
+     * @param province
+     * @param city
+     */
     private void selectCountry(String province, String city) {
         mCurrentStringArray.clear();
         ArrayList<String> cityList = (ArrayList<String>) cityDB.getAllCountry(province, city);
@@ -208,6 +234,9 @@ public class GridPop extends PopupWindow {
         }
     }
 
+    /**
+     * 标志位
+     */
     private enum FlagCitySelected {
         ZERO, PROVINCE, CITY, COUNTRY;
     }
