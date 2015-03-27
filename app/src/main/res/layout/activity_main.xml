@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:background="@drawable/city_select_pop_window_action_bar_shape"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="30dp">
 
         <Button
             android:background="@android:color/white"

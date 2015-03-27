@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="全部"
+            android:text="全境"
             android:background="@drawable/city_select"
             android:id="@+id/id_btn_pop_grid_all"
             android:textSize="12sp"

@@ -240,7 +240,7 @@ public class GridPop extends PopupWindow {
             this.dismiss();
         } else {
 
-            this.showAsDropDown(v);
+            this.showAsDropDown(v,0,2);
             this.setOnCitySelectedListener(new GridPop.onCitySelectedListener() {
                 @Override
                 public void onCitySelected(String city) {
