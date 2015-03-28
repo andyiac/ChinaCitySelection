@@ -1,5 +1,5 @@
 # China city selection
-select china city or country with popwindow
+select china city or county with popwindow
 
 
 ## Screenshots
