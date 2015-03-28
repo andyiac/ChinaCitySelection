@@ -3,6 +3,7 @@ package knight.chinacityselection.views;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class GridPop extends PopupWindow {
 
     private RelativeLayout mRLPopTitleAction;
 
+    private Button mCurrentClickBtn;
 
     public interface onCitySelectedListener {
         public void onCitySelected(String city);
@@ -83,6 +85,7 @@ public class GridPop extends PopupWindow {
     }
 
     private void initView() {
+
 
         mCurrentStringArray = (ArrayList<String>) cityDB.getAllProvince();
 
@@ -180,7 +183,14 @@ public class GridPop extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(Color.rgb(252, 252, 252)));
         setTouchable(true);
         setFocusable(true);
-        setOutsideTouchable(true);
+        setOutsideTouchable(false);
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                shiftBtnRightDrawableUp();
+            }
+        });
+
     }
 
     /**
@@ -236,11 +246,13 @@ public class GridPop extends PopupWindow {
      * @param v
      */
     public void toggle(final View v) {
+
+        mCurrentClickBtn = (Button) v;
         if (this.isShowing()) {
             this.dismiss();
         } else {
-
-            this.showAsDropDown(v,0,2);
+            shiftBtnRightDrawableDown();
+            this.showAsDropDown(v, 0, 2);
             this.setOnCitySelectedListener(new GridPop.onCitySelectedListener() {
                 @Override
                 public void onCitySelected(String city) {
@@ -248,6 +260,18 @@ public class GridPop extends PopupWindow {
                 }
             });
         }
+    }
+
+    private void shiftBtnRightDrawableUp() {
+        Drawable mDrawableUp = context.getResources().getDrawable(R.drawable.arrow_up);
+        mDrawableUp.setBounds(1, 1, 50, 50);
+        mCurrentClickBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableUp, null);
+    }
+
+    private void shiftBtnRightDrawableDown() {
+        Drawable mDrawableDown = context.getResources().getDrawable(R.drawable.arrow_down);
+        mDrawableDown.setBounds(1, 1, 50, 50);
+        mCurrentClickBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableDown, null);
     }
 
     /**

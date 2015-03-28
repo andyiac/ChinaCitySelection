@@ -36,7 +36,7 @@
             android:textSize="16sp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="选择出发地" />
+            android:text="出发地" />
 
         <View
             android:background="@android:color/darker_gray"
@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:id="@+id/id_btn_2"
             android:layout_height="wrap_content"
-            android:text="选择目的地" />
+            android:text="目的地" />
     </LinearLayout>
 
 
