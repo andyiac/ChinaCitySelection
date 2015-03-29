@@ -22,7 +22,10 @@ import knight.chinacityselection.R;
 import knight.chinacityselection.adapter.GridViewAdapter;
 import knight.chinacityselection.db.CityDB;
 
-
+/**
+ * 省市县选择
+ * by andyiac 2015年3月29日
+ */
 public class GridPop extends PopupWindow {
     private Context context;
     private LayoutInflater layoutInflater;
@@ -43,7 +46,7 @@ public class GridPop extends PopupWindow {
 
     private RelativeLayout mRLPopTitleAction;
 
-    private Button mCurrentClickBtn;
+    private Button mCurrentClickedBtn;
 
     public interface onCitySelectedListener {
         public void onCitySelected(String city);
@@ -85,7 +88,6 @@ public class GridPop extends PopupWindow {
     }
 
     private void initView() {
-
 
         mCurrentStringArray = (ArrayList<String>) cityDB.getAllProvince();
 
@@ -249,7 +251,7 @@ public class GridPop extends PopupWindow {
      */
     public void toggle(final View v) {
 
-        mCurrentClickBtn = (Button) v;
+        mCurrentClickedBtn = (Button) v;
         if (this.isShowing()) {
             this.dismiss();
         } else {
@@ -268,13 +270,13 @@ public class GridPop extends PopupWindow {
     private void shiftBtnRightDrawableUp() {
         Drawable mDrawableUp = context.getResources().getDrawable(R.drawable.arrow_up);
         mDrawableUp.setBounds(1, 1, 50, 50);
-        mCurrentClickBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableUp, null);
+        mCurrentClickedBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableUp, null);
     }
 
     private void shiftBtnRightDrawableDown() {
         Drawable mDrawableDown = context.getResources().getDrawable(R.drawable.arrow_down);
         mDrawableDown.setBounds(1, 1, 50, 50);
-        mCurrentClickBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableDown, null);
+        mCurrentClickedBtn.setCompoundDrawablesWithIntrinsicBounds(null, null, mDrawableDown, null);
     }
 
     /**

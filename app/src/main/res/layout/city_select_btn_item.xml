@@ -12,8 +12,7 @@
         android:layout_height="30dp"
         android:clickable="false"
         android:focusable="false"
-        android:text="text"
         android:singleLine="true"
         android:textSize="16sp"
-        android:id="@+id/ItemBtn" />
+        android:id="@+id/id_item_btn" />
 </RelativeLayout>
